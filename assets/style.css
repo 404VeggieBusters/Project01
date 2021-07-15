@@ -1,4 +1,42 @@
-h1{ 
+h1 {
     text-align: center;
     color: green;
 }
+
+.nav {
+    background-color: var(forestgreen);
+    color: whitesmoke;
+    text-align: center;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0;
+    width: 100%;
+    display: inline-block;
+    list-style: none;
+}
+
+
+
+
+/* Media query that changes width of items based on device */
+/* Tablets - header changes color */
+/* @media screen and (max-width: 992px) {
+    /* header { */
+      /* background: forestgreen;
+    }
+  }
+  
+  /* Large smartphones - navbar changes color */
+  /* @media screen and (max-width: 768px) {
+    /* nav { */
+      /* background-color: seagreen; */
+    /* } */
+  /* }  */
+  
+  /* Small smartphones - image placeholders change color */
+  /* @media screen and (max-width: 576px) {
+    /* .sample-img { */
+      /* background-color: lightgreen;
+    }
+  }   */

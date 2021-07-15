@@ -6,7 +6,10 @@ var cityLocation = document.getElementById("cityLocation");
 var searchButton = document.getElementById("searchButton");
 
 // variable for search results 
+// 
 // variable for ALL the API keys that we use
+
+var suggesticAPI = "b3c04215f109c6bfb89a65bf7fa97bca24f3a1be";
 
 
 // create function called getCity to grab local restaurants in city that is searched (below)
@@ -21,9 +24,9 @@ var searchButton = document.getElementById("searchButton");
 // pass city name into it. parameter with city 
 // };
 
-// function to get coordinates of location/places around it 
+// create function to get coordinates of location/places around it 
 
-// function to display search results 
+// create function to display search results 
 
 // use parse to get data from websites to get only what we need (lesson 6 - activity 7)
 
@@ -38,6 +41,8 @@ var searchButton = document.getElementById("searchButton");
 
 // create local storage for different pages to be stored
 
+// display some of data from user input 
+
 
 // add event listener for search button
 searchButton.addEventListener("click", function (event) {
@@ -48,4 +53,6 @@ searchButton.addEventListener("click", function (event) {
 // add event listener for moving from one webpage to another
 // add event listener clicking on images and recipes
 
-// media query (bottom of page)
+// 
+
+// give header an animation and add some audio to the page? (last thing to do)
