@@ -40,8 +40,9 @@ var searchButton = document.getElementById("searchButton");
 
 
 // add event listener for search button
-searchButton.addEventListener("click", function() {
-    
+searchButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    console.log("byee");
 });
 
 // add event listener for moving from one webpage to another
