@@ -1,13 +1,19 @@
+
+
 h1 {
     text-align: center;
     color: green;
+}
+
+.brand-logo {
+  align-items: left; 
 }
 
 nav {
     background-color: var(forestgreen);
     color: whitesmoke;
     text-align: center;
-    display: inline-flex;
+    display: inline-block;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 0;
@@ -38,6 +44,11 @@ img {
 }
 }
 
+footer {
+  align-items: center;
+  text-align: center;
+
+}
 
 /* Media query that changes width of items based on device */
 /* Tablets - header changes color */
