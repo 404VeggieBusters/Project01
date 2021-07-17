@@ -60,6 +60,8 @@ function getCoordinates(city) {
         }
     };
 
+   
+
     $.ajax(settings)
     .then(function (response) {
         console.log(response);
@@ -67,6 +69,15 @@ function getCoordinates(city) {
         getFood(coordinates);
     });
 };
+
+function displayRestaurants(restaurants) {
+    for (let i = 0; i < restaurants.length; i++)
+        {
+            let restDiv = $("<div>").text(restaurants[i].name)
+            $("#restaurants").append(restDiv)
+        }
+
+}
 
 function getFood(coordinates) {
     console.log(coordinates);
@@ -90,8 +101,32 @@ function getFood(coordinates) {
     .then(function(response){
         console.log(response)
         // display results
+        if (response.businesses.length) {
+            
+            displayRestaurants(response.businesses);
+            
+        }
     })
-}
+    // .catch(function (error) {
+    //     alert('Unable to connect to GitHub');
+    // });
+};
+
+//  Expamle for displaying results. Delete when finished
+// fetch(apiUrl)
+//     .then(function (response) {
+//       if (response.ok) {
+//         response.json().then(function (data) {
+//           displayRepos(data, user);
+//         });
+//       } else {
+//         alert('Error: ' + response.statusText);
+//       }
+//     })
+//     .catch(function (error) {
+//       alert('Unable to connect to GitHub');
+//     });
+// };
 
 
 // create function to get coordinates of location/places around it 
@@ -122,6 +157,12 @@ searchButton.addEventListener("click", function (event) {
     console.log(cityLocation.value);
     getCity();
 });
+
+// add event listener for once search button is pressed nearby locations html page pops upto display data
+// searchButton.addEventListener("click", function(event) {
+//     document.location.href = 'nearbylocations.html';
+//     console.log()
+// })
 
 // add event listener for moving from one webpage to another
 // add event listener clicking on images and recipes

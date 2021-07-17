@@ -21,6 +21,30 @@ nav {
     list-style: none;
 }
 
+/* aside {
+  margin: 2px;
+  padding: 20px;
+  float: left;
+  border: 1px solid #7F0B00;
+background-color: #ADB4B8;
+display:table-cell;
+}   */
+
+/* .sidebox {
+border: 1px solid black;
+width: 12em;
+background:#fff;
+display:table-cell;
+} */
+
+#subtext {
+  color: forestgreen;
+}
+
+.link-boxes {
+  float: right;
+}
+
 .link {
     text-align: center;
 }
@@ -45,6 +69,8 @@ img {
 }
 
 footer {
+  Border: 15px;
+  background-color: forestgreen;
   align-items: center;
   text-align: center;
 
