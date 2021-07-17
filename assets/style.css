@@ -3,7 +3,7 @@ h1 {
     color: green;
 }
 
-.nav {
+nav {
     background-color: var(forestgreen);
     color: whitesmoke;
     text-align: center;
@@ -15,8 +15,14 @@ h1 {
     list-style: none;
 }
 
-
-
+.link {
+    text-align: center;
+}
+@media screen and (max-width: 992px) {
+    body{
+        background-color: lightcoral;
+    }
+}
 
 /* Media query that changes width of items based on device */
 /* Tablets - header changes color */

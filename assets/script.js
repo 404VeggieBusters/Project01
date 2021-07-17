@@ -11,6 +11,8 @@ var searchButton = document.getElementById("searchButton");
 
 var suggesticAPI = "b3c04215f109c6bfb89a65bf7fa97bca24f3a1be";
 
+var geoDataSourceAPI = "HWICQSCOZN1ZDRUYQTUPUNUE3LENMAML";
+
 
 // create function called getCity to grab local restaurants in city that is searched (below)
 
