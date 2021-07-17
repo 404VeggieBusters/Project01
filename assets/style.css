@@ -15,9 +15,19 @@ h1 {
     list-style: none;
 }
 
+.box {
+  min-height: 80px!important;
+  border-radius: 5px;
+  background-color: gainsboro;
+  padding: 5px;
+  margin: 5px;
+  min-width: 50px; 
+}
 
 
-
+img {
+  max-width:100%;
+}
 
 /* Media query that changes width of items based on device */
 /* Tablets - header changes color */
