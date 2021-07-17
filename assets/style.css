@@ -22,26 +22,19 @@ nav {
     body{
         background-color: lightcoral;
     }
+
+.box {
+  min-height: 80px!important;
+  border-radius: 5px;
+  background-color: gainsboro;
+  padding: 5px;
+  margin: 5px;
+  min-width: 50px; 
 }
 
-/* Media query that changes width of items based on device */
-/* Tablets - header changes color */
-/* @media screen and (max-width: 992px) {
-    /* header { */
-      /* background: forestgreen;
-    }
-  }
-  
-  /* Large smartphones - navbar changes color */
-  /* @media screen and (max-width: 768px) {
-    /* nav { */
-      /* background-color: seagreen; */
-    /* } */
-  /* }  */
-  
-  /* Small smartphones - image placeholders change color */
-  /* @media screen and (max-width: 576px) {
-    /* .sample-img { */
-      /* background-color: lightgreen;
-    }
-  }   */
+
+img {
+  max-width:100%;
+}
+
+}
