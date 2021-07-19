@@ -74,7 +74,17 @@ function displayRestaurants(restaurants) {
     for (let i = 0; i < restaurants.length; i++)
         {
             let restDiv = $("<div>").text(restaurants[i].name)
+            let restAddrsDiv = $("<div>").text(restaurants[i]["location"]["display_address"])
+            let restPhoneDiv = $("<div>").text(restaurants[i]["display_phone"])
+            let restURLlink = document.createElement('a');
+            restURLlink.setAttribute('href',restaurants[i]["url"]);
+            restURLlink.innerHTML = "Click to view yelp page";
+            restURLlink.target = '_blank';
             $("#restaurants").append(restDiv)
+            $("#restaurants").append(restAddrsDiv)
+            $("#restaurants").append(restPhoneDiv)
+            $("#restaurants").append(restURLlink)
+            
         }
 
 }
