@@ -9,6 +9,10 @@ h1 {
   align-items: left; 
 }
 
+img {
+  max-width:100%;
+}
+
 nav {
     background-color: var(forestgreen);
     color: whitesmoke;
