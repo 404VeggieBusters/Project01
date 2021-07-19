@@ -9,6 +9,10 @@ h1 {
   align-items: left; 
 }
 
+img {
+  max-width:100%;
+}
+
 nav {
     background-color: var(forestgreen);
     color: whitesmoke;
@@ -19,6 +23,11 @@ nav {
     padding: 0;
     width: 100%;
     list-style: none;
+}
+.myimage {
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
 }
 
 /* aside {
@@ -62,11 +71,6 @@ display:table-cell;
   min-width: 50px; 
 }
 
-
-img {
-  max-width:100%;
-}
-}
 
 footer {
   Border: 15px;
