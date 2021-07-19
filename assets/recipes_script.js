@@ -1,7 +1,7 @@
 
 
 
-$("#searchButton").addEventListener("click", function(event){
+$("#searchButton").on("click", function(event){
     event.preventDefault();
     let searchBox = $("#search-box").val();
     let diet = $('input[name="diet"]:checked').val();

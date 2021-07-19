@@ -20,6 +20,11 @@ nav {
     width: 100%;
     list-style: none;
 }
+.myimage {
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+}
 
 /* aside {
   margin: 2px;
@@ -62,11 +67,6 @@ display:table-cell;
   min-width: 50px; 
 }
 
-
-img {
-  max-width:100%;
-}
-}
 
 footer {
   Border: 15px;
