@@ -2,7 +2,6 @@
 
 h1 {
     text-align: center;
-    color: green;
 }
 
 .brand-logo {
@@ -33,6 +32,12 @@ nav {
   width: 500px;
   height: 500px;
   object-fit: cover;
+  transform: translate3d(-50%, 69.8807px, 0px);
+  opacity: 0.4!important;
+}
+
+.parallax-container {
+  height: 400px!important;
 }
 
 /* aside {
@@ -63,9 +68,7 @@ display:table-cell;
     text-align: center;
 }
 @media screen and (max-width: 992px) {
-    body{
-        background-color: lightcoral;
-    }
+    
 
 .box {
   min-height: 80px!important;
@@ -75,6 +78,13 @@ display:table-cell;
   margin: 5px;
   min-width: 50px; 
 }
+
+.teal-gradiant {
+  background: rgb(255,255,255);
+background: linear-gradient(335deg, rgba(255,255,255,1) 0%, rgba(0,137,123,1) 100%);
+
+}
+
 
 footer {
   Border: 15px;

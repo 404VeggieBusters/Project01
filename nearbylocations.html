@@ -26,20 +26,36 @@
         </nav>
     </header>
 
-    <div id="container">
+    <section id="search" class="section section-search teal-gradiant darken-1 white-text center scrollspy">
+        <div class="container">
+          <div class="row">
+            <div class="col s12">
+              <h3>Search Locations</h3>
+              <div class="input-field" id="citySearch">
+                <input class="white grey-text autocomplete" placeholder="Enter a city" type="text" id="cityLocation">
+              </div>
+              <button type="submit" id="searchButton" class="btn">Search</button>
+              <button type="submit" id="nearbyButton" class="btn">Find Nearby</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="container">
+        <div box id="restaurants">
+            
+        </div>
+
+      </div>
+    <!-- <div id="container">
         <aside>
-            <!-- <h3>Search for City:</h3> -->
             <form id="citySearch">
                 <input type="text" id="cityLocation" placeholder="Enter City Here">
                 <button type="submit" id="searchButton">Search</button>
                 <button type="submit" id="nearbyButton">Find Nearby</button>
             </form>
         </aside>
-        <div box id="restaurants">
-            
-        </div>
 
-    </div>
+    </div> -->
 
 
     <!-- https://www.w3schools.com/howto/howto_css_dropdown.asp (use to create a dropdown button) -->
