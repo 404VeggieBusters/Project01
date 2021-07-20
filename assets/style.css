@@ -67,7 +67,6 @@ display:table-cell;
 .link {
     text-align: center;
 }
-@media screen and (max-width: 992px) {
     
 
 .box {
@@ -81,8 +80,7 @@ display:table-cell;
 
 .teal-gradiant {
   background: rgb(255,255,255);
-background: linear-gradient(335deg, rgba(255,255,255,1) 0%, rgba(0,137,123,1) 100%);
-
+  background: linear-gradient(335deg, rgba(255,255,255,1) 0%, rgba(0,137,123,1) 100%);
 }
 
 
@@ -92,24 +90,3 @@ footer {
   align-items: center;
   text-align: center;
 }
-/* Media query that changes width of items based on device */
-/* Tablets - header changes color */
-/* @media screen and (max-width: 992px) {
-    /* header { */
-      /* background: forestgreen;
-    }
-  }
-  
-  /* Large smartphones - navbar changes color */
-  /* @media screen and (max-width: 768px) {
-    /* nav { */
-      /* background-color: seagreen; */
-    /* } */
-  /* }  */
-  
-  /* Small smartphones - image placeholders change color */
-  /* @media screen and (max-width: 576px) {
-    /* .sample-img { */
-      /* background-color: lightgreen;
-    }
-  }   */
