@@ -9,6 +9,11 @@ h1 {
   align-items: left; 
 }
 
+.recipe-img {
+  width: 300px;
+  height: 300px;
+}
+
 img {
   max-width:100%;
 }
@@ -71,15 +76,12 @@ display:table-cell;
   min-width: 50px; 
 }
 
-
 footer {
   Border: 15px;
   background-color: forestgreen;
   align-items: center;
   text-align: center;
-
 }
-
 /* Media query that changes width of items based on device */
 /* Tablets - header changes color */
 /* @media screen and (max-width: 992px) {
