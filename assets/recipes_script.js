@@ -10,7 +10,7 @@ $("#searchButton").on("click", function(event){
 
 function callSpoonacularSearchAPI(searchBox, diet){
 
-    let queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + searchBox +"&diet=" + diet + "&number=9&apiKey=" + key;
+    let queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + searchBox +"&diet=" + diet + "&number=12&apiKey=" + key;
 
     fetch(queryURL)
     .then(function (response) {
@@ -23,13 +23,16 @@ function callSpoonacularSearchAPI(searchBox, diet){
     .then(function (data) {
         // Check if the response is 200
         console.log(data);
-
-        let boxSelector = $(".box");
+        $(".recipe-box").css("display", "none");
+        $("#rescipes-result").removeAttr("style");
+        let recipeBoxSelector = $(".recipe-box");
+        let boxSelector = $(".card-title");
+        let imgSelector = $(".recipe-img");
         for (let i = 0; i < boxSelector.length; i++){
             getRecipeInfo($(boxSelector[i]), data["results"][i]["id"]);
             $(boxSelector[i]).html(data["results"][i]["title"]);
-            $(boxSelector[i]).append("<img src='" + data["results"][i]["image"] +"'>")
-            // $(boxSelector[i]).find(".recipe-img").attr("src", data["results"][i]["image"]);
+            $(imgSelector[i]).attr("src",  data["results"][i]["image"]);
+            $(recipeBoxSelector[i]).attr("style", "");
         }
     }); 
 }
