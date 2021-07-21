@@ -64,6 +64,19 @@ display:table-cell;
   color: forestgreen;
 }
 
+.recipe-box {
+  height: 250px;
+  width: 200px;
+}
+
+.card-title{
+  font-size: 11px!important;
+}
+
+.recipe-img {
+  height: 100%;
+}
+
 .link-boxes {
   float: right;
 }
