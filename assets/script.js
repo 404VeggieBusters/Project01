@@ -85,8 +85,8 @@ function displayRestaurants(restaurants) {
                     </div>
                     <div class="col s2">
                     <img src="${restaurants[i].image_url}">
-                    // Jess created this button 
-                    // <button id="${restaurants[i]}">I Like This!</button> 
+                // Jess created this button 
+                    <button id="${restaurants[i]}">I Like This!</button> 
                 </div>
             </div>
             `;
