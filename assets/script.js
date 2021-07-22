@@ -1,14 +1,10 @@
-
 // variable for cities
 var cityLocation = document.getElementById("cityLocation");
-
 // variable for search
 var searchButton = document.getElementById("searchButton");
 var nearbyButton = document.getElementById("nearbyButton");
-
 // variable for local storage
-var favRestaurants
-
+var favRestaurants 
 // variable for cors
 var corsAnywhere = "https://cors-anywhere-bc.herokuapp.com/"
 // variable for ALL the API keys that we use
@@ -19,8 +15,6 @@ var xyzGeocodeAPI = "575609437300452386840x18086";
 // yelp Api
 var yelpAPI = "2QBglnFCVDpjaktvp3S9GFKkMJ52FQnfvEiaUVitSMYpgAKJzA56FMTp8F1RZElq6X1iDSW4wZonXGeSONZJQHzSLk3TT31LrJ_hzgCT9ZOykvEChChAD8rV6CPzYHYx";
 
-
-
 // create function called getCity to grab local restaurants in city that is searched (below)
 function getCity(event) {
     //event.preventDefault();
@@ -29,9 +23,6 @@ function getCity(event) {
     //consult api about city's plant based restaurants 
     getCoordinates(citySearch);
 };
-
-
-
 // city parameter tells function you're going to get data passed through
 function getCoordinates(city) {
 
@@ -49,6 +40,7 @@ function getCoordinates(city) {
     };
 
 
+
     $.ajax(settings)
         .then(function (response) {
             //console.log(response);
@@ -57,7 +49,7 @@ function getCoordinates(city) {
         });
 };
 
-function displayRestaurants(restaurants) {
+function displayRestaurants(restaurants, coordinates) {
     $("#restaurants").html("");
     console.log(restaurants);
     for (let i = 0; i < restaurants.length; i++) {
@@ -80,17 +72,18 @@ function displayRestaurants(restaurants) {
                 <div class="card">
                     <div class="col offset-s3 s4">
                     <h4><a href="${restaurants[i]["url"]}" target="_blank"> ${restaurants[i].name}</a></h4>
+                    <p id="${restaurants[i].id}"></p>
                     <p>${restaurants[i]["location"]["display_address"]}</p>
                     <p>${restaurants[i]["display_phone"]} </p>
                     </div>
                     <div class="col s2">
                     <img src="${restaurants[i].image_url}">
-                // Jess created this button 
                     <button id="${restaurants[i]}">I Like This!</button> 
                 </div>
             </div>
             `;
         $("#restaurants").append(row);
+        getDistanceToRestaurant(restaurants[i], coordinates)
 
         // $("#restaurants").append(restDiv)
         // $("#restaurants").append(restAddrsDiv)
@@ -100,6 +93,14 @@ function displayRestaurants(restaurants) {
             noRestaraunt.innerHTML;
         }
     }
+}
+
+function getDistanceToRestaurant(restaurant, coordinates) {
+// do geolocation on restaurant.location
+// .then()...do  the haversine calculation
+  $("#" + restaurant.id).text(`50 miles`)
+//  .then(function ())
+
 }
 
 function getFood(coordinates) {
@@ -126,7 +127,7 @@ function getFood(coordinates) {
             // display results
             if (response.businesses.length) {
 
-                displayRestaurants(response.businesses);
+                displayRestaurants(response.businesses, coordinates);
             }
         })
     // .catch(function (error) {
@@ -141,31 +142,13 @@ function getFood(coordinates) {
 // check local storage of names of restaurants / turn color of button -4
 // can only save data from string to array (json.parse) -5
 
-
-//  Example for displaying results. Delete when finished
-// fetch(apiUrl)
-//     .then(function (response) {
-//       if (response.ok) {
-//         response.json().then(function (data) {
-//           displayRepos(data, user);
-//         });
-//       } else {
-//         alert('Error: ' + response.statusText);
-//       }
-//     })
-//     .catch(function (error) {
-//       alert('Unable to connect to GitHub');
-//     });
-// };
-
-
-// create function to get coordinates of location/places around it 
+// create local storage for 
 
 // use parse to get data from websites to get only what we need (lesson 6 - activity 7)
 
 // look at lesson 6 - activity 23
 
-// make sure to set parameters in function, whether it's an event, response, etc. 
+
 
 // hover effect on images of recipes / search results
 
@@ -184,7 +167,7 @@ function getFood(coordinates) {
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
     console.log(cityLocation.value);
-    getCity();
+    console.log(haversine(start, end, {unit: 'mile'}))
 });
 
 
@@ -200,15 +183,3 @@ function getCurrentLocation(position) {
     }
     getFood(coord);
 }
-
-// add event listener for once search button is pressed nearby locations html page pops up to display data
-// searchButton.addEventListener("click", function(event) {
-//     document.location.href = 'nearbylocations.html';
-//     console.log()
-// })
-
-// add event listener for moving from one webpage to another
-
-// add event listener clicking on images and recipes
-
-// give header an animation and add some audio to the page? (last thing to do)

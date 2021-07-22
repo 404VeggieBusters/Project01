@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <header>
+    <header class="location">
         <nav class="nav-wrapper green">
             <div class="container">
                 <a href="#logo" class="brand-logo left"> Logo</a>
@@ -26,25 +26,36 @@
         </nav>
     </header>
 
-    <div id="container">
-        <aside>
-            <!-- <h3>Search for City:</h3> -->
-            <form id="citySearch">
-                <input type="text" id="cityLocation" placeholder="Enter City Here">
-                <button type="submit" id="searchButton">Search</button>
-                <button type="submit" id="nearbyButton">Find Nearby</button>
-            </form>
-        </aside>
+
+
+    <div class="parallax-container">
+        <div class="parallax" style="height: 350px;"><img src="./assets/img/Compass_.jpg" class="myimage" /></div>
+        <br><br>
+        <h3 class="header center">Search Locations</h3>
+        <div class="container center-align">
+            <div class="input-field" id="citySearch">
+                <input class="white grey-text autocomplete" placeholder="Enter a city" type="text" id="cityLocation">
+            </div>
+            <button type="submit" id="searchButton" class="btn">Search</button>
+            <button type="submit" id="nearbyButton" class="btn">Find Nearby</button>
+        </div>
+    </div>
+    
+    
+    </section>
+    <div class="container">
         <div box id="restaurants">
-            
+
         </div>
 
     </div>
 
+   
 
     <!-- https://www.w3schools.com/howto/howto_css_dropdown.asp (use to create a dropdown button) -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./assets/haversine.js"></script>
     <script src="./assets/script.js"></script>
 </body>
 
