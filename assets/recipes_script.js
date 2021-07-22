@@ -1,4 +1,8 @@
-var key = "2436ad4dd883448a9f59aaec6b642783";
+var key = "ca05cdaee13841619a5e1291c78b6eb3";
+
+$(document).ready(function(){
+    var modal = $('.modal').modal();
+});
 
 $("#searchButton").on("click", function(event){
     event.preventDefault();
@@ -23,6 +27,12 @@ function callSpoonacularSearchAPI(searchBox, diet){
     .then(function (data) {
         // Check if the response is 200
         console.log(data);
+
+        if (data["results"].length === 0){
+            $('.modal').modal('open');
+            return;
+        }
+
         $(".recipe-box").css("display", "none");
         $("#recipes-result").removeAttr("style");
         let recipeBoxSelector = $(".recipe-box");
