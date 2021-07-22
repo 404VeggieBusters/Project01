@@ -33,14 +33,9 @@ img {
 nav {
     background-color: var(forestgreen);
     color: whitesmoke;
-    text-align: center;
-    display: inline-block;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 0;
-    width: 100%;
-    list-style: none;
+    opacity: 0.9;
 }
+
 .myimage {
   width: 500px;
   height: 500px;
@@ -75,11 +70,20 @@ display:table-cell;
 
 .recipe-box {
   height: 250px;
-  width: 200px;
+  width: 220px;
+}
+
+.card {
+  margin: 3rem 0 1rem 0!important;
+}
+
+h4 {
+  margin: 0rem 0 .912rem 0!important;
 }
 
 .card-title{
   font-size: 11px!important;
+  line-height: 14px!important;
 }
 
 .recipe-img {
@@ -116,6 +120,7 @@ footer {
   align-items: center;
   text-align: center;
   padding-top: 0px;
+  opacity: 0.9;
 }
 .flex-container {
   display: flex; 
@@ -132,4 +137,3 @@ body {
 main {
   flex: 1 0 auto;
 }
-   
