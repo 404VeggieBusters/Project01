@@ -39,7 +39,7 @@ function getCoordinates(city) {
         }
     };
 
-
+  
 
     $.ajax(settings)
         .then(function (response) {
@@ -61,7 +61,7 @@ function displayRestaurants(restaurants, coordinates) {
         restURLlink.innerHTML = "Click to view yelp page";
         restURLlink.target = '_blank';
         let noRestaraunt = document.createElement('h3');
-        noRestaraunt.innerHTML = "No restaraunts near you";
+        noRestaraunt.innerHTML = "No restarants near you";
         // adding like button to restaurant cards 
         var likeButton = document.createElement("button");
 
@@ -85,21 +85,22 @@ function displayRestaurants(restaurants, coordinates) {
         $("#restaurants").append(row);
         getDistanceToRestaurant(restaurants[i], coordinates)
 
-        // $("#restaurants").append(restDiv)
-        // $("#restaurants").append(restAddrsDiv)
-        // $("#restaurants").append(restPhoneDiv)
-        // $("#restaurants").append(restURLlink)
+
         if (restaurants[i] === 0) {
-            noRestaraunt.innerHTML;
+           
         }
     }
 }
 
 function getDistanceToRestaurant(restaurant, coordinates) {
 // do geolocation on restaurant.location
+$.ajax(navigator.geolocation.restaurant.location)
 // .then()...do  the haversine calculation
-  $("#" + restaurant.id).text(`50 miles`)
-//  .then(function ())
+    .then(function (haversine) {
+        console.log(haversine)
+       // $("#" + restaurant.id).text(`50 miles`)
+    })
+  
 
 }
 
@@ -166,8 +167,8 @@ function getFood(coordinates) {
 // add event listener for search button
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
-    console.log(cityLocation.value);
-    console.log(haversine(start, end, {unit: 'mile'}))
+    navigator.geolocation.getCurrentPosition(getCurrentLocation);
+    
 });
 
 
