@@ -17,6 +17,8 @@ h1 {
 
 .brand-logo {
   align-items: left; 
+  width: 150px;
+  height: 65px;
 }
 
 .recipe-img {
