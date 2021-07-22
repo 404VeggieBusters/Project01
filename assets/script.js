@@ -6,8 +6,9 @@ var cityLocation = document.getElementById("cityLocation");
 var searchButton = document.getElementById("searchButton");
 var nearbyButton = document.getElementById("nearbyButton");
 
-// variable for local storage
-var favRestaurants
+// variable for local storage 
+// var favRestaurantsIndex = document.getElement...
+// bring json into storage (bringing back json= google)!!
 
 // variable for cors
 var corsAnywhere = "https://cors-anywhere-bc.herokuapp.com/"
@@ -85,7 +86,7 @@ function displayRestaurants(restaurants) {
                     </div>
                     <div class="col s2">
                     <img src="${restaurants[i].image_url}">
-                // Jess created this button 
+                // favorite restaurant button
                     <button id="${restaurants[i]}">I Like This!</button> 
                 </div>
             </div>
@@ -136,28 +137,11 @@ function getFood(coordinates) {
 
 // Jess' Tasks for Wednesday
 // add event listener to each I Like This Button - 1
+
 // set it as local storage in fav restaurants -2 
 // localStorage.setItem("") -3 (set a key- fav rest. and push name into key you created in local storage)
 // check local storage of names of restaurants / turn color of button -4
 // can only save data from string to array (json.parse) -5
-
-
-//  Example for displaying results. Delete when finished
-// fetch(apiUrl)
-//     .then(function (response) {
-//       if (response.ok) {
-//         response.json().then(function (data) {
-//           displayRepos(data, user);
-//         });
-//       } else {
-//         alert('Error: ' + response.statusText);
-//       }
-//     })
-//     .catch(function (error) {
-//       alert('Unable to connect to GitHub');
-//     });
-// };
-
 
 // create function to get coordinates of location/places around it 
 
@@ -167,12 +151,7 @@ function getFood(coordinates) {
 
 // make sure to set parameters in function, whether it's an event, response, etc. 
 
-// hover effect on images of recipes / search results
-
-
-
 // can create multiple functions and create p tags and apphend tags 
-
 
 // create local storage for different pages to be stored
 
