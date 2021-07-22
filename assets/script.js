@@ -15,6 +15,12 @@ var xyzGeocodeAPI = "575609437300452386840x18086";
 // yelp Api
 var yelpAPI = "2QBglnFCVDpjaktvp3S9GFKkMJ52FQnfvEiaUVitSMYpgAKJzA56FMTp8F1RZElq6X1iDSW4wZonXGeSONZJQHzSLk3TT31LrJ_hzgCT9ZOykvEChChAD8rV6CPzYHYx";
 
+
+$(document).ready(function(){
+    var modal = $('.modal').modal();
+});
+
+
 // create function called getCity to grab local restaurants in city that is searched (below)
 function getCity(event) {
     //event.preventDefault();
@@ -52,6 +58,12 @@ function getCoordinates(city) {
 function displayRestaurants(restaurants, coordinates) {
     $("#restaurants").html("");
     console.log(restaurants);
+
+    if (restaurants.length === 0){
+        $('.modal').modal('open');
+        return;
+    }
+
     for (let i = 0; i < restaurants.length; i++) {
         let restDiv = $("<div>").text(restaurants[i].name)
         let restAddrsDiv = $("<div>").text(restaurants[i]["location"]["display_address"])
@@ -94,11 +106,12 @@ function displayRestaurants(restaurants, coordinates) {
 
 function getDistanceToRestaurant(restaurant, coordinates) {
 // do geolocation on restaurant.location
-$.ajax(navigator.geolocation.restaurant.location)
+$.ajax(restaurant.location.geolocation)
 // .then()...do  the haversine calculation
     .then(function (haversine) {
-        console.log(haversine)
-       // $("#" + restaurant.id).text(`50 miles`)
+                for(let i = 0; i < restaurants.length; i++){
+                    $("#" + restaurant.id).text('is ' + haversine.restaurants[i] + ' miles away')
+                }
     })
   
 
