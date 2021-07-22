@@ -6,7 +6,8 @@ var cityLocation = document.getElementById("cityLocation");
 var searchButton = document.getElementById("searchButton");
 var nearbyButton = document.getElementById("nearbyButton");
 
-// variable for search results 
+// variable for local storage
+var favRestaurants
 
 // variable for cors
 var corsAnywhere = "https://cors-anywhere-bc.herokuapp.com/"
@@ -69,6 +70,10 @@ function displayRestaurants(restaurants) {
         restURLlink.target = '_blank';
         let noRestaraunt = document.createElement('h3');
         noRestaraunt.innerHTML = "No restaraunts near you";
+        // adding like button to restaurant cards 
+        var likeButton = document.createElement("button");
+
+
 
         let row = `
             <div class="row">
@@ -80,6 +85,8 @@ function displayRestaurants(restaurants) {
                     </div>
                     <div class="col s2">
                     <img src="${restaurants[i].image_url}">
+                    // Jess created this button 
+                    // <button id="${restaurants[i]}">I Like This!</button> 
                 </div>
             </div>
             `;
@@ -126,6 +133,14 @@ function getFood(coordinates) {
     //     alert('Unable to connect to GitHub');
     // });
 };
+
+// Jess' Tasks for Wednesday
+// add event listener to each I Like This Button - 1
+// set it as local storage in fav restaurants -2 
+// localStorage.setItem("") -3 (set a key- fav rest. and push name into key you created in local storage)
+// check local storage of names of restaurants / turn color of button -4
+// can only save data from string to array (json.parse) -5
+
 
 //  Example for displaying results. Delete when finished
 // fetch(apiUrl)
@@ -186,7 +201,7 @@ function getCurrentLocation(position) {
     getFood(coord);
 }
 
-// add event listener for once search button is pressed nearby locations html page pops upto display data
+// add event listener for once search button is pressed nearby locations html page pops up to display data
 // searchButton.addEventListener("click", function(event) {
 //     document.location.href = 'nearbylocations.html';
 //     console.log()
