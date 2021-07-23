@@ -101,10 +101,15 @@ function displayRestaurants(restaurants, coordinates) {
     }
 }
 
+//  do not need to loop through restaraunts because getDistanceToRestaurant already receives a single restaurant info
+// we call haversine function from the js file  and call these parameters -- ex: haversine (startCoordinates, endCoordinates, options)
 function getDistanceToRestaurant(restaurant) {
     let distance = haversine(
-        {"longitude":currentLocation.coords.longitude, "latitude":currentLocation.coords.latitude},
-        {"longitude":restaurant.coordinates.longitude, "latitude":restaurant.coordinates.latitude},
+        // start coords from geolocation API call
+        {"longitude": currentLocation.coords.longitude, "latitude":currentLocation.coords.latitude},
+        // end coords from the Yelp API call 
+        {"longitude": restaurant.coordinates.longitude, "latitude":restaurant.coordinates.latitude},
+        // change from kilometers to miles 
         {unit: 'mile'}
     )
 
