@@ -4,7 +4,7 @@ var cityLocation = document.getElementById("cityLocation");
 var searchButton = document.getElementById("searchButton");
 var nearbyButton = document.getElementById("nearbyButton");
 // variable for local storage
-var favRestaurants 
+var favRestaurants
 // variable for cors
 var corsAnywhere = "https://cors-anywhere-bc.herokuapp.com/"
 // variable for ALL the API keys that we use
@@ -15,14 +15,20 @@ var xyzGeocodeAPI = "575609437300452386840x18086";
 // yelp Api
 var yelpAPI = "2QBglnFCVDpjaktvp3S9GFKkMJ52FQnfvEiaUVitSMYpgAKJzA56FMTp8F1RZElq6X1iDSW4wZonXGeSONZJQHzSLk3TT31LrJ_hzgCT9ZOykvEChChAD8rV6CPzYHYx";
 
+var currentLocation = null;
 
-$(document).ready(function(){
+$(document).ready(function () {
     var modal = $('.modal').modal();
 });
 
+function getMiles(i) {
+    return i*0.000621371192;
+}
+
 
 // create function called getCity to grab local restaurants in city that is searched (below)
-function getCity(event) {
+function getCity(geolocation) {
+    currentLocation = geolocation;
     //event.preventDefault();
     //create variable of city we're searching 
     var citySearch = cityLocation.value;
@@ -31,6 +37,11 @@ function getCity(event) {
 };
 // city parameter tells function you're going to get data passed through
 function getCoordinates(city) {
+
+    if (city === undefined) {
+        $('.modal').modal('open');
+        return;
+    }
 
     // Get users location
     // fetch geoCode API
@@ -45,8 +56,6 @@ function getCoordinates(city) {
         }
     };
 
-  
-
     $.ajax(settings)
         .then(function (response) {
             //console.log(response);
@@ -59,11 +68,6 @@ function displayRestaurants(restaurants, coordinates) {
     $("#restaurants").html("");
     console.log(restaurants);
 
-    if (restaurants.length === 0){
-        $('.modal').modal('open');
-        return;
-    }
-
     for (let i = 0; i < restaurants.length; i++) {
         let restDiv = $("<div>").text(restaurants[i].name)
         let restAddrsDiv = $("<div>").text(restaurants[i]["location"]["display_address"])
@@ -72,18 +76,15 @@ function displayRestaurants(restaurants, coordinates) {
         restURLlink.setAttribute('href', restaurants[i]["url"]);
         restURLlink.innerHTML = "Click to view yelp page";
         restURLlink.target = '_blank';
-        let noRestaraunt = document.createElement('h3');
-        noRestaraunt.innerHTML = "No restarants near you";
         // adding like button to restaurant cards 
         var likeButton = document.createElement("button");
-
-
 
         let row = `
             <div class="row">
                 <div class="card">
                     <div class="col offset-s3 s4">
                     <h4><a href="${restaurants[i]["url"]}" target="_blank"> ${restaurants[i].name}</a></h4>
+                    <p>${getDistanceToRestaurant(restaurants[i])} miles</p>
                     <p id="${restaurants[i].id}"></p>
                     <p>${restaurants[i]["location"]["display_address"]}</p>
                     <p>${restaurants[i]["display_phone"]} </p>
@@ -95,25 +96,19 @@ function displayRestaurants(restaurants, coordinates) {
             </div>
             `;
         $("#restaurants").append(row);
-        getDistanceToRestaurant(restaurants[i], coordinates)
+        // getDistanceToRestaurant(restaurants[i])
 
-
-        if (restaurants[i] === 0) {
-           
-        }
     }
 }
 
-function getDistanceToRestaurant(restaurant, coordinates) {
-// do geolocation on restaurant.location
-$.ajax(restaurant.location.geolocation)
-// .then()...do  the haversine calculation
-    .then(function (haversine) {
-                for(let i = 0; i < restaurants.length; i++){
-                    $("#" + restaurant.id).text('is ' + haversine.restaurants[i] + ' miles away')
-                }
-    })
-  
+function getDistanceToRestaurant(restaurant) {
+    let distance = haversine(
+        {"longitude":currentLocation.coords.longitude, "latitude":currentLocation.coords.latitude},
+        {"longitude":restaurant.coordinates.longitude, "latitude":restaurant.coordinates.latitude},
+        {unit: 'mile'}
+    )
+
+    return Math.round(distance);
 
 }
 
@@ -130,18 +125,18 @@ function getFood(coordinates) {
     //     })
 
     $.ajax({
-        url: `${corsAnywhere}https://api.yelp.com/v3/businesses/search?latitude=${coordinates.lat}&longitude=${coordinates.lon}&categories=vegan&limit=50`,
-        method: "GET",
-        headers: {
-            Authorization: "Bearer " + yelpAPI
-        }
-    })
+            url: `${corsAnywhere}https://api.yelp.com/v3/businesses/search?latitude=${coordinates.lat}&longitude=${coordinates.lon}&categories=vegan&limit=50`,
+            method: "GET",
+            headers: {
+                Authorization: "Bearer " + yelpAPI
+            }
+        })
         .then(function (response) {
-            console.log(response)
             // display results
             if (response.businesses.length) {
-
                 displayRestaurants(response.businesses, coordinates);
+            }else {
+                $('.modal').modal('open');
             }
         })
     // .catch(function (error) {
@@ -180,8 +175,7 @@ function getFood(coordinates) {
 // add event listener for search button
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
-    navigator.geolocation.getCurrentPosition(getCurrentLocation);
-    
+    navigator.geolocation.getCurrentPosition(getCity);
 });
 
 
