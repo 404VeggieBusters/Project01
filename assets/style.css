@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap');
 
-
 header .location {
   background-image: url("/assets/img/Compass_.jpg");
   background-position: center;
@@ -136,4 +135,8 @@ body {
 
 main {
   flex: 1 0 auto;
+}
+
+.like-btn {
+  background-color: palevioletred!important;
 }

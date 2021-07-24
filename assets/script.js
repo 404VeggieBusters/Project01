@@ -3,10 +3,12 @@ var cityLocation = document.getElementById("cityLocation");
 // variable for search
 var searchButton = document.getElementById("searchButton");
 var nearbyButton = document.getElementById("nearbyButton");
-// variable for local storage
-var favRestaurants
+var favoritesButton = document.getElementById("favoritesButton");
+// variable for current list of restaurants
+var restaurantList;
 // variable for cors
 var corsAnywhere = "https://cors-anywhere-bc.herokuapp.com/"
+
 // variable for ALL the API keys that we use
 // Recipe API
 var suggesticAPI = "b3c04215f109c6bfb89a65bf7fa97bca24f3a1be";
@@ -22,9 +24,8 @@ $(document).ready(function () {
 });
 
 function getMiles(i) {
-    return i*0.000621371192;
+    return i * 0.000621371192;
 }
-
 
 // create function called getCity to grab local restaurants in city that is searched (below)
 function getCity(geolocation) {
@@ -67,141 +68,102 @@ function getCoordinates(city) {
 function displayRestaurants(restaurants, coordinates) {
     $("#restaurants").html("");
     console.log(restaurants);
-
+    restaurantList = restaurants;
+    // A loop to go throught the array and find the restaurants name, address, phone number,
     for (let i = 0; i < restaurants.length; i++) {
-        let restDiv = $("<div>").text(restaurants[i].name)
-        let restAddrsDiv = $("<div>").text(restaurants[i]["location"]["display_address"])
-        let restPhoneDiv = $("<div>").text(restaurants[i]["display_phone"])
-        let restURLlink = document.createElement('a');
-        restURLlink.setAttribute('href', restaurants[i]["url"]);
-        restURLlink.innerHTML = "Click to view yelp page";
-        restURLlink.target = '_blank';
-        // adding like button to restaurant cards 
-        var likeButton = document.createElement("button");
-
+        let distanceP = ``
+        if (typeof coordinates != undefined && coordinates) {
+            distanceP = `<p>${getDistanceToRestaurant(restaurants[i], coordinates)} miles</p>`
+        }
         let row = `
             <div class="row">
                 <div class="card">
                     <div class="col offset-s3 s4">
-                    <h4><a href="${restaurants[i]["url"]}" target="_blank"> ${restaurants[i].name}</a></h4>
-                    <p>${getDistanceToRestaurant(restaurants[i])} miles</p>
-                    <p id="${restaurants[i].id}"></p>
+                    <h4><a href="${restaurants[i]["url"]}" target="_blank"> ${restaurants[i].name}</a></h4>` +
+                    distanceP +
+                    `<p id="${restaurants[i].id}"></p>
                     <p>${restaurants[i]["location"]["display_address"]}</p>
                     <p>${restaurants[i]["display_phone"]} </p>
                     </div>
                     <div class="col s2">
                     <img src="${restaurants[i].image_url}">
-                    <button id="${restaurants[i]}">I Like This!</button> 
+                    <button class="like-btn btn" style="line-height: 14px;" id="like${restaurants[i].id}">Add To Favorites</button> 
                 </div>
             </div>
             `;
         $("#restaurants").append(row);
-        // getDistanceToRestaurant(restaurants[i])
-
     }
 }
 
-//  do not need to loop through restaraunts because getDistanceToRestaurant already receives a single restaurant info
 // we call haversine function from the js file  and call these parameters -- ex: haversine (startCoordinates, endCoordinates, options)
-function getDistanceToRestaurant(restaurant) {
+function getDistanceToRestaurant(restaurant, coordinates) {
     let distance = haversine(
         // start coords from geolocation API call
-        {"longitude": currentLocation.coords.longitude, "latitude":currentLocation.coords.latitude},
+        { "longitude": currentLocation.coords.longitude, "latitude": currentLocation.coords.latitude },
+        // { "longitude": coordinates.lon, "latitude": coordinates.lat },
         // end coords from the Yelp API call 
-        {"longitude": restaurant.coordinates.longitude, "latitude":restaurant.coordinates.latitude},
+        { "longitude": restaurant.coordinates.longitude, "latitude": restaurant.coordinates.latitude },
         // change from kilometers to miles 
-        {unit: 'mile'}
+        { unit: 'mile' }
     )
-
     return Math.round(distance);
-
 }
 
 function getFood(coordinates) {
     console.log(coordinates);
     //will take the users input and find restaraunts through yelp API
-    // fetch yelpAPI 
-    // fetch("https://api.yelp.com/v3")
-    //     .then(function (response) {
-    //         return response.json();
-    //     })
-    //     .then(function (data) {
-
-    //     })
-
     $.ajax({
-            url: `${corsAnywhere}https://api.yelp.com/v3/businesses/search?latitude=${coordinates.lat}&longitude=${coordinates.lon}&categories=vegan&limit=50`,
-            method: "GET",
-            headers: {
-                Authorization: "Bearer " + yelpAPI
-            }
-        })
+        url: `${corsAnywhere}https://api.yelp.com/v3/businesses/search?latitude=${coordinates.lat}&longitude=${coordinates.lon}&categories=vegan&limit=50`,
+        method: "GET",
+        headers: {
+            Authorization: "Bearer " + yelpAPI
+        }
+    })
         .then(function (response) {
             // display results
             if (response.businesses.length) {
                 displayRestaurants(response.businesses, coordinates);
-            }else {
+            } else {
                 $('.modal').modal('open');
             }
         })
-
-
-         // hide spinner
+    // hide spinner
     $("#spinner").addClass("hide");
-    // .catch(function (error) {
-    //     alert('Unable to connect to GitHub');
-    // });
 };
 
-// Jess' Tasks for Wednesday
-// add event listener to each I Like This Button - 1
-// set it as local storage in fav restaurants -2 
-// localStorage.setItem("") -3 (set a key- fav rest. and push name into key you created in local storage)
-// check local storage of names of restaurants / turn color of button -4
-// can only save data from string to array (json.parse) -5
-
-// create local storage for 
-
-// use parse to get data from websites to get only what we need (lesson 6 - activity 7)
-
-// look at lesson 6 - activity 23
-
-
-
-// hover effect on images of recipes / search results
-
-
-
-// can create multiple functions and create p tags and apphend tags 
-
-
-// create local storage for different pages to be stored
-
-
-// display some of data from user input 
-
-
 // add event listener for search button
-searchButton.addEventListener("click", function (event) {
-    event.preventDefault();
-    navigator.geolocation.getCurrentPosition(getCity);
+if (searchButton) {
+    searchButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        navigator.geolocation.getCurrentPosition(getCity);
+        // unhide spinner
+        $("#spinner").removeClass("hide");
+        // clear content
+        $("#restaurants").html("");
+    });
+}
 
-      // unhide spinner
-      $("#spinner").removeClass("hide");
-      // clear content
-      $("#restaurants").html("");
-});
+// Creats button to find nearby restaurants of user
+if (nearbyButton) {
+    nearbyButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        navigator.geolocation.getCurrentPosition(getCurrentLocation); // from W3
+        // unhide spinner
+        $("#spinner").removeClass("hide");
+        // clear content
+        $("#restaurants").html("");
+    });
+}
 
+// Creats button to list favorites
+if (favoritesButton) {
+    favoritesButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        displayRestaurants(favRestaurants)
+    });
+}
 
-nearbyButton.addEventListener("click", function (event) {
-    event.preventDefault();
-    navigator.geolocation.getCurrentPosition(getCurrentLocation); // from W3
-      // unhide spinner
-      $("#spinner").removeClass("hide");
-      // clear content
-      $("#restaurants").html("");
-});
-
+// Finds the current location of the user
 function getCurrentLocation(position) {
     let coord = {
         "lat": position.coords.latitude,
