@@ -30,15 +30,21 @@ var xyzGeocodeAPI = "575609437300452386840x18086";
 // yelp Api
 var yelpAPI = "2QBglnFCVDpjaktvp3S9GFKkMJ52FQnfvEiaUVitSMYpgAKJzA56FMTp8F1RZElq6X1iDSW4wZonXGeSONZJQHzSLk3TT31LrJ_hzgCT9ZOykvEChChAD8rV6CPzYHYx";
 
+var currentLocation = null;
 
 $(document).ready(function () {
     var modal = $('.modal').modal();
 });
 
+function getMiles(i) {
+    return i * 0.000621371192;
+}
+
 
 // create function called getCity to grab local restaurants in city that is searched (below)
 function getCity(event) {
     event.preventDefault();
+    currentLocation = geolocation;
     //create variable of city we're searching 
     var citySearch = cityLocation.value;
     //consult api about city's plant based restaurants 
@@ -46,6 +52,11 @@ function getCity(event) {
 };
 // city parameter tells function you're going to get data passed through
 function getCoordinates(city) {
+
+    if (city === undefined) {
+        $('.modal').modal('open');
+        return;
+    }
 
     // Get users location
     // fetch geoCode API
@@ -118,16 +129,16 @@ function displayRestaurants(restaurants, coordinates) {
     card.append(button);
 
     row.append(card);
-
-    function doSomething(event) {
-        event.preventDefault();
-// loop possiblities of if someone clicks button and if they don't
+}
+function doSomething(event) {
+    event.preventDefault();
+    // loop possiblities of if someone clicks button and if they don't
 
     // if (likeThisButton !== null) {
-        // insert condition
-        // else {
-            // condition
-        // }
+    // insert condition
+    // else {
+    // condition
+    // }
 
     //     for (var i = 0; i < highScorez.length; i++) {
 
@@ -135,17 +146,39 @@ function displayRestaurants(restaurants, coordinates) {
     //         createLi.textContent = highScorez[i].initials + " " + highScorez[i].score;
     //         highScorez.appendChild(createLi);
     //     }
-        for(var i = 0; i < likeThisButton; i++);
+    for (var i = 0; i < likeThisButton; i++);
 
-    }
+}
 
-    function myFunction(element) {
-        element.getElementByClass("likeThisButton").style.color = "green";
-    }
+function myFunction(element) {
+    element.getElementByClass("likeThisButton").style.color = "green";
+    // adding like button to restaurant cards 
+    var likeButton = document.createElement("button");
+
+    let row = `
+            <div class="row">
+                <div class="card">
+                    <div class="col offset-s3 s4">
+                    <h4><a href="${restaurants[i]["url"]}" target="_blank"> ${restaurants[i].name}</a></h4>
+                    <p>${getDistanceToRestaurant(restaurants[i])} miles</p>
+                    <p id="${restaurants[i].id}"></p>
+                    <p>${restaurants[i]["location"]["display_address"]}</p>
+                    <p>${restaurants[i]["display_phone"]} </p>
+                    </div>
+                    <div class="col s2">
+                    <img src="${restaurants[i].image_url}">
+                    <button id="${restaurants[i]}">I Like This!</button> 
+                </div>
+            </div>
+            `;
+    $("#restaurants").append(row);
+    // getDistanceToRestaurant(restaurants[i])
+
+}
 
 
-    }
-    // Jess' Tasks (Don't touch please!!)
+    
+// Jess' Tasks (Don't touch please!!)
 // set it as local storage in fav restaurants -2 
 // function favRestaurant() 
 // localStorage.setItem("") -3 (set a key- fav rest. and push name into key you created in local storage)
@@ -155,30 +188,35 @@ function displayRestaurants(restaurants, coordinates) {
 // display user input in local storage
 // store JavaScript object 
 localStorage.setItem('favRestaurant', JSON.stringify(favRestaurant));
-console.log(favRestaurant); 
+console.log(favRestaurant);
 // to retrieve from storage and convert it to an object again 
 var likeThisButton = JSON.parse(localStorage.getItem('iLikeThis'));
 console.log("button like this");
 // use parse to get data from websites to get only what we need (lesson 6 - activity 7)
 // look at lesson 6 - activity 23
 // create local storage for different pages to be stored
-    // How do I add <div class="col offset-s3 s4"> and <div class="col s2"> to the card that I created?
+// How do I add <div class="col offset-s3 s4"> and <div class="col s2"> to the card that I created?
 
 
-    // don't changes the codes below with the backticks and append row and coordinates (3 lines)!
-`;
+// don't changes the codes below with the backticks and append row and coordinates (3 lines)!
+// `;
         $("#restaurants").append(row);
         getDistanceToRestaurant(restaurants[i], coordinates);
 
-function getDistanceToRestaurant(restaurant, coordinates) {
-// do geolocation on restaurant.location
-$.ajax(restaurant.location.geolocation)
-// .then()...do  the haversine calculation
-    .then(function (haversine) {
-                for(let i = 0; i < restaurants.length; i++){
-                    $("#" + restaurant.id).text('is ' + haversine.restaurants[i] + ' miles away')
-                }
-    })
+//  do not need to loop through restaraunts because getDistanceToRestaurant already receives a single restaurant info
+// we call haversine function from the js file  and call these parameters -- ex: haversine (startCoordinates, endCoordinates, options)
+function getDistanceToRestaurant(restaurant) {
+    let distance = haversine(
+        // start coords from geolocation API call
+        {"longitude": currentLocation.coords.longitude, "latitude":currentLocation.coords.latitude},
+        // end coords from the Yelp API call 
+        {"longitude": restaurant.coordinates.longitude, "latitude":restaurant.coordinates.latitude},
+        // change from kilometers to miles 
+        {unit: 'mile'}
+    )
+
+    return Math.round(distance);
+
 }
 
 function getFood(coordinates) {
@@ -194,19 +232,52 @@ function getFood(coordinates) {
     //     })
 
     $.ajax({
-        url: ${ corsAnywhere } https://api.yelp.com/v3/businesses/search?latitude=${coordinates.lat}&longitude=${coordinates.lon}&categories=vegan&limit=50`,
-    method = "GET",
-        headers = {
-        Authorization: "Bearer " + yelpAPI
-    }
+            url: `${corsAnywhere}https://api.yelp.com/v3/businesses/search?latitude=${coordinates.lat}&longitude=${coordinates.lon}&categories=vegan&limit=50`,
+            method: "GET",
+            headers: {
+                Authorization: "Bearer " + yelpAPI
+            }
+        })
         .then(function (response) {
-    console.log(response)
-    // display results
-    if (response.businesses.length) {
+            // display results
+            if (response.businesses.length) {
+                displayRestaurants(response.businesses, coordinates);
+            }else {
+                $('.modal').modal('open');
+            }
+        })
+    // .catch(function (error) {
+    //     alert('Unable to connect to GitHub');
+    // });
+};
 
-        displayRestaurants(response.businesses, coordinates);
-    }
-});
+// Jess' Tasks for Wednesday
+// add event listener to each I Like This Button - 1
+// set it as local storage in fav restaurants -2
+// localStorage.setItem("") -3 (set a key- fav rest. and push name into key you created in local storage)
+// check local storage of names of restaurants / turn color of button -4
+// can only save data from string to array (json.parse) -5
+
+// create local storage for
+
+// use parse to get data from websites to get only what we need (lesson 6 - activity 7)
+
+// look at lesson 6 - activity 23
+
+
+
+// hover effect on images of recipes / search results
+
+
+
+// can create multiple functions and create p tags and apphend tags
+
+
+// create local storage for different pages to be stored
+
+        //         displayRestaurants(response.businesses, coordinates);
+        //     }
+        // });
 // .catch(function (error) {
 //     alert('Unable to connect to GitHub');
 // });
@@ -216,8 +287,7 @@ function getFood(coordinates) {
 // add event listener for search button
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
-    navigator.geolocation.getCurrentPosition(getCurrentLocation);
-
+    navigator.geolocation.getCurrentPosition(getCity);
 });
 
 
