@@ -45,11 +45,15 @@ During this project, we all worked extremely hard as a team. We did not leave a 
 
 
 Contact:
+Whit1JL-patch-2
+    The best way to get in contact with Jessica is: jessica2714white@gmail.com. The best way to get in contact with Ronald is: rholden.rh@gmail.com. The best way to get in contact with Ricardo is: ricky.ramos10@yahoo.com. The best way to get in contact with Valbona is: valbona12@gmail.com. 
+=======
 
 The best way to get in contact with Jessica is: jessica2714white@gmail.com
 The best way to get in contact with Ronald is: rholden.rh@gmail.com
 The best way to get in contact with Ricardo is: ricky.ramos10@yahoo.com
 The best way to get in contact with Valbona is: valbona12@gmail.com
+ main
 
 Active Project Link: https://404veggiebusters.github.io/Project1/index.html
 
