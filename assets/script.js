@@ -144,6 +144,10 @@ function getFood(coordinates) {
                 $('.modal').modal('open');
             }
         })
+
+
+         // hide spinner
+    $("#spinner").addClass("hide");
     // .catch(function (error) {
     //     alert('Unable to connect to GitHub');
     // });
@@ -181,12 +185,21 @@ function getFood(coordinates) {
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
     navigator.geolocation.getCurrentPosition(getCity);
+
+      // unhide spinner
+      $("#spinner").removeClass("hide");
+      // clear content
+      $("#restaurants").html("");
 });
 
 
 nearbyButton.addEventListener("click", function (event) {
     event.preventDefault();
     navigator.geolocation.getCurrentPosition(getCurrentLocation); // from W3
+      // unhide spinner
+      $("#spinner").removeClass("hide");
+      // clear content
+      $("#restaurants").html("");
 });
 
 function getCurrentLocation(position) {
