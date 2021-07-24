@@ -4,13 +4,21 @@ var cityLocation = document.getElementById("cityLocation");
 var searchButton = document.getElementById("searchButton");
 var nearbyButton = document.getElementById("nearbyButton");
 
-// I Like This Button
-var likeThisButton = localStorage.getItem("I Like This");
-console.log("button like this");
+// paragraph location 
+var pLocationVariable = "${restaurants[i].location.display_address}";
 
-// variable for local storage 
-// var favRestaurantsIndex = document.getElement...
-// bring json into storage (bringing back json= google)!!
+// paragraph phone number
+var pNumberVariable = "${restaurants[i].display_phone}";
+
+// image variable
+var imgVariable = "${restaurants[i].image_url}";
+
+// heading variable
+var headVariable = "${restaurants[i].name}";
+
+// button (I Like This) variable
+var likeThisButton = "${restaurants[i]}";
+
 
 // variable for cors
 var corsAnywhere = "https://cors-anywhere-bc.herokuapp.com/"
@@ -23,7 +31,7 @@ var xyzGeocodeAPI = "575609437300452386840x18086";
 var yelpAPI = "2QBglnFCVDpjaktvp3S9GFKkMJ52FQnfvEiaUVitSMYpgAKJzA56FMTp8F1RZElq6X1iDSW4wZonXGeSONZJQHzSLk3TT31LrJ_hzgCT9ZOykvEChChAD8rV6CPzYHYx";
 
 
-$(document).ready(function(){
+$(document).ready(function () {
     var modal = $('.modal').modal();
 });
 
@@ -52,7 +60,7 @@ function getCoordinates(city) {
         }
     };
 
-  
+
 
     $.ajax(settings)
         .then(function (response) {
@@ -66,7 +74,7 @@ function displayRestaurants(restaurants, coordinates) {
     $("#restaurants").html("");
     console.log(restaurants);
 
-    if (restaurants.length === 0){
+    if (restaurants.length === 0) {
         $('.modal').modal('open');
         return;
     }
@@ -81,36 +89,86 @@ function displayRestaurants(restaurants, coordinates) {
         restURLlink.target = '_blank';
         let noRestaraunt = document.createElement('h3');
         noRestaraunt.innerHTML = "No restarants near you";
-        // adding like button to restaurant cards 
-        var likeThisButton = document.createElement("button");
-
-
-
-        let row = `
-            <div class="row">
-                <div class="card">
-                    <div class="col offset-s3 s4">
-                    <h4><a href="${restaurants[i]["url"]}" target="_blank"> ${restaurants[i].name}</a></h4>
-                    <p id="${restaurants[i].id}"></p>
-                    <p>${restaurants[i]["location"]["display_address"]}</p>
-                    <p>${restaurants[i]["display_phone"]} </p>
-                    </div>
-                    <div class="col s2">
-                    <img src="${restaurants[i].image_url}">
-                // favorite restaurant button
-                    <button id="${restaurants[i]}">I Like This!</button> 
-                </div>
-            </div>
-            `;
-        $("#restaurants").append(row);
-        getDistanceToRestaurant(restaurants[i], coordinates)
-
-
-        if (restaurants[i] === 0) {
-           
-        }
     }
-}
+    // adding like button to restaurant cards 
+    // var likeThisButton = document.createElement("button");
+
+
+
+    let row = document.createElement("div");
+    row.classList.add("row");
+    let card = document.createElement("card");
+    card.classList.add("card");
+    let heading = document.createElement("h4");
+    heading.innerText = headVariable;
+    let paragraphLocation = document.createElement("p");
+    paragraphLocation.innerText = pLocationVariable;
+    let paragraphPhone = document.createElement("p");
+    paragraphPhone.innerText = pNumberVariable;
+    let picture = document.createElement("img");
+    picture.src = imgVariable;
+    let btn = document.createElement("button");
+    btn.classList.add("likeThisButton");
+    btn.addEventListener("click", doSomething);
+
+    card.append(heading);
+    card.append(paragraphLocation);
+    card.append(paragraphPhone);
+    card.append(picture);
+    card.append(button);
+
+    row.append(card);
+
+    function doSomething(event) {
+        event.preventDefault();
+// loop possiblities of if someone clicks button and if they don't
+
+    // if (likeThisButton !== null) {
+        // insert condition
+        // else {
+            // condition
+        // }
+
+    //     for (var i = 0; i < highScorez.length; i++) {
+
+    //         var createLi = document.createElement("li");
+    //         createLi.textContent = highScorez[i].initials + " " + highScorez[i].score;
+    //         highScorez.appendChild(createLi);
+    //     }
+        for(var i = 0; i < likeThisButton; i++);
+
+    }
+
+    function myFunction(element) {
+        element.getElementByClass("likeThisButton").style.color = "green";
+    }
+
+
+    }
+    // Jess' Tasks (Don't touch please!!)
+// set it as local storage in fav restaurants -2 
+// function favRestaurant() 
+// localStorage.setItem("") -3 (set a key- fav rest. and push name into key you created in local storage)
+// check local storage of names of restaurants / turn color of button -4
+// can only save data from string to array (json.parse) -5
+// bring json into storage (bringing back json= google)!!
+// display user input in local storage
+// store JavaScript object 
+localStorage.setItem('favRestaurant', JSON.stringify(favRestaurant));
+console.log(favRestaurant); 
+// to retrieve from storage and convert it to an object again 
+var likeThisButton = JSON.parse(localStorage.getItem('iLikeThis'));
+console.log("button like this");
+// use parse to get data from websites to get only what we need (lesson 6 - activity 7)
+// look at lesson 6 - activity 23
+// create local storage for different pages to be stored
+    // How do I add <div class="col offset-s3 s4"> and <div class="col s2"> to the card that I created?
+
+
+    // don't changes the codes below with the backticks and append row and coordinates (3 lines)!
+`;
+        $("#restaurants").append(row);
+        getDistanceToRestaurant(restaurants[i], coordinates);
 
 function getDistanceToRestaurant(restaurant, coordinates) {
 // do geolocation on restaurant.location
@@ -121,8 +179,6 @@ $.ajax(restaurant.location.geolocation)
                     $("#" + restaurant.id).text('is ' + haversine.restaurants[i] + ' miles away')
                 }
     })
-  
-
 }
 
 function getFood(coordinates) {
@@ -138,55 +194,30 @@ function getFood(coordinates) {
     //     })
 
     $.ajax({
-        url: `${corsAnywhere}https://api.yelp.com/v3/businesses/search?latitude=${coordinates.lat}&longitude=${coordinates.lon}&categories=vegan&limit=50`,
-        method: "GET",
-        headers: {
-            Authorization: "Bearer " + yelpAPI
-        }
-    })
+        url: ${ corsAnywhere } https://api.yelp.com/v3/businesses/search?latitude=${coordinates.lat}&longitude=${coordinates.lon}&categories=vegan&limit=50`,
+    method = "GET",
+        headers = {
+        Authorization: "Bearer " + yelpAPI
+    }
         .then(function (response) {
-            console.log(response)
-            // display results
-            if (response.businesses.length) {
+    console.log(response)
+    // display results
+    if (response.businesses.length) {
 
-                displayRestaurants(response.businesses, coordinates);
-            }
-        })
-    // .catch(function (error) {
-    //     alert('Unable to connect to GitHub');
-    // });
-};
+        displayRestaurants(response.businesses, coordinates);
+    }
+});
+// .catch(function (error) {
+//     alert('Unable to connect to GitHub');
+// });
 
-// Jess' Tasks for Wednesday
-// add event listener to each I Like This Button - 1
-
-// set it as local storage in fav restaurants -2 
-// localStorage.setItem("") -3 (set a key- fav rest. and push name into key you created in local storage)
-// check local storage of names of restaurants / turn color of button -4
-// can only save data from string to array (json.parse) -5
-
-// create function to get coordinates of location/places around it 
-// create local storage for 
-
-// use parse to get data from websites to get only what we need (lesson 6 - activity 7)
-
-// look at lesson 6 - activity 23
-
-
-
-// can create multiple functions and create p tags and apphend tags 
-
-// create local storage for different pages to be stored
-
-
-// display some of data from user input 
 
 
 // add event listener for search button
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
     navigator.geolocation.getCurrentPosition(getCurrentLocation);
-    
+
 });
 
 
