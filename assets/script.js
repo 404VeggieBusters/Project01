@@ -1,6 +1,6 @@
 // variable for cities
 var cityLocation = document.getElementById("cityLocation");
-// variable for search
+// variable for buttons
 var searchButton = document.getElementById("searchButton");
 var nearbyButton = document.getElementById("nearbyButton");
 var favoritesButton = document.getElementById("favoritesButton");
@@ -20,9 +20,14 @@ var yelpAPI = "2QBglnFCVDpjaktvp3S9GFKkMJ52FQnfvEiaUVitSMYpgAKJzA56FMTp8F1RZElq6
 var currentLocation = null;
 
 $(document).ready(function () {
+    // initilizing modal
     var modal = $('.modal').modal();
+    // initilizing current location
+    navigator.geolocation.getCurrentPosition(function init(position){
+        currentLocation = position;
+    });
 });
-
+// convert distance from km to miles
 function getMiles(i) {
     return i * 0.000621371192;
 }
@@ -30,21 +35,18 @@ function getMiles(i) {
 // create function called getCity to grab local restaurants in city that is searched (below)
 function getCity(geolocation) {
     currentLocation = geolocation;
-    //event.preventDefault();
     //create variable of city we're searching 
     var citySearch = cityLocation.value;
     //consult api about city's plant based restaurants 
     getCoordinates(citySearch);
 };
+
 // city parameter tells function you're going to get data passed through
 function getCoordinates(city) {
-
     if (city === undefined) {
         $('.modal').modal('open');
         return;
     }
-
-    // Get users location
     // fetch geoCode API
     const settings = {
         async: true,
@@ -56,15 +58,15 @@ function getCoordinates(city) {
             "x-rapidapi-host": "forward-reverse-geocoding.p.rapidapi.com"
         }
     };
-
+// making an API call to the URL
     $.ajax(settings)
         .then(function (response) {
-            //console.log(response);
             var coordinates = response[0];
             getFood(coordinates);
         });
 };
 
+// displays the restaurant information
 function displayRestaurants(restaurants, coordinates) {
     $("#restaurants").html("");
     console.log(restaurants);
@@ -100,17 +102,15 @@ function getDistanceToRestaurant(restaurant, coordinates) {
     let distance = haversine(
         // start coords from geolocation API call
         { "longitude": currentLocation.coords.longitude, "latitude": currentLocation.coords.latitude },
-        // { "longitude": coordinates.lon, "latitude": coordinates.lat },
         // end coords from the Yelp API call 
         { "longitude": restaurant.coordinates.longitude, "latitude": restaurant.coordinates.latitude },
         // change from kilometers to miles 
         { unit: 'mile' }
     )
-    return Math.round(distance);
+    return Math.round(distance);  //Rounds the distance
 }
 
 function getFood(coordinates) {
-    console.log(coordinates);
     //will take the users input and find restaraunts through yelp API
     $.ajax({
         url: `${corsAnywhere}https://api.yelp.com/v3/businesses/search?latitude=${coordinates.lat}&longitude=${coordinates.lon}&categories=vegan&limit=50`,
@@ -147,7 +147,7 @@ if (searchButton) {
 if (nearbyButton) {
     nearbyButton.addEventListener("click", function (event) {
         event.preventDefault();
-        navigator.geolocation.getCurrentPosition(getCurrentLocation); // from W3
+        navigator.geolocation.getCurrentPosition(getCurrentLocation); 
         // unhide spinner
         $("#spinner").removeClass("hide");
         // clear content
