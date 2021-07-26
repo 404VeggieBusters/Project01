@@ -35,7 +35,17 @@ The prerequistites for project one are:
 
 Usage:
 
-This web application is very user-friendly and accessible. (insert screenshots of website here, sample code of local storage, and from materialize CSS framework - Jess). 
+This web application is very user-friendly and accessible. 
+
+
+In the code below, found in haversine.js, we implement the haversine method. Our main reason for utilizing this method was to be able to find the exact distance between the user and a location. 
+
+![image](https://user-images.githubusercontent.com/82970208/126925024-337311a2-fbe9-410a-8d3b-f6110e0124ca.png)
+
+
+In this image below, the code shown is how we built our local storage. The Yelp API gave us the ability to display the address, phone number, the name of the company and a picture. We added a button underneath the image entitled "Add To Favorites" so when a user clicks it that selection is automatically added to the storage. Our professor, Rich Hosek was an instrumental figure on this section. 
+
+![image](https://user-images.githubusercontent.com/82970208/126925637-275db894-f239-46a8-9fa9-8847994f778a.png)
 
 
 Contributing:
@@ -45,21 +55,25 @@ During this project, we all worked extremely hard as a team. We did not leave a 
 
 
 Contact:
-Whit1JL-patch-2
-    The best way to get in contact with Jessica is: jessica2714white@gmail.com. The best way to get in contact with Ronald is: rholden.rh@gmail.com. The best way to get in contact with Ricardo is: ricky.ramos10@yahoo.com. The best way to get in contact with Valbona is: valbona12@gmail.com. 
-=======
 
-The best way to get in contact with Jessica is: jessica2714white@gmail.com
-The best way to get in contact with Ronald is: rholden.rh@gmail.com
-The best way to get in contact with Ricardo is: ricky.ramos10@yahoo.com
-The best way to get in contact with Valbona is: valbona12@gmail.com
- main
+https://files.slack.com/files-pri/T021BB1744D-F028PM9HHN2/img_5635.jpg
+The best way to get in contact with Jessica is: jessica2714white@gmail.com. 
+
+https://files.slack.com/files-pri/T021BB1744D-F0292M3RQKW/20180718_155129.jpg
+The best way to get in contact with Ronald is: rholden.rh@gmail.com.
+
+https://files.slack.com/files-pri/T021BB1744D-F028TDN7JQM/rickyaboutus.jpg
+The best way to get in contact with Ricardo is: ricky.ramos10@yahoo.com.
+
+https://files.slack.com/files-pri/T021BB1744D-F029F329PLZ/image_from_ios.jpg
+The best way to get in contact with Valbona is: valbona12@gmail.com.
+
 
 Active Project Link: https://404veggiebusters.github.io/Project1/index.html
 
 Acknowledgements:
 
-Thank you Rich Hosek, Jessica Parker and Chris Yang for all of your guidance. 
+Thank you Rich Hosek, Jessica Parker and Chris Yang for all of your guidance throughout this process. We appreciate you! 
 
 We want to acknowledge and give credit to Njj (@njj on GitHub). We utilized some of the haversine method to pull the mile radius between the user and the restaurant. 
 https://github.com/njj/haversine/blob/develop/haversine.js
